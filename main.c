@@ -1,10 +1,11 @@
 #include "game.h"
-void menu()
-{
+
+void menu() {
     printf("请选择：\n");
     printf("1.Start\n");
     printf("0.Exit\n");
 }
+
 void game()
 {
     char realboard[ROWS][COLS] = { 0 };
@@ -13,14 +14,16 @@ void game()
     initboard(realboard, ROWS, COLS, '0');
     initboard(showboard, ROWS, COLS, '*');
     
-    printboard(realboard, ROWS, COLS);
-    printboard(showboard, ROWS, COLS);
+    printboard(realboard, ROW, COL);
+    printboard(showboard, ROW, COL);
+    
+    setboard(realboard, ROWS, COLS);
+    printboard(realboard, ROW, COL);
     
 }
 void test()
 {
     unsigned int selection = 0;
-
     do {
         menu();
         printf("Please select :");
@@ -40,10 +43,12 @@ void test()
         
     } while(selection);
 }
+
 int main()
 {
     int a = 0;
     printf("中文测试\n");
+    srand((unsigned)(time(NULL)));
     test();
     scanf("%d",&a);
 }
