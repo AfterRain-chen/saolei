@@ -17,8 +17,11 @@ void game()
     printboard(realboard, ROW, COL);
     printboard(showboard, ROW, COL);
     
-    setboard(realboard, ROWS, COLS);
+    setboard(realboard, ROW, COL);
     printboard(realboard, ROW, COL);
+    printboard(showboard, ROW, COL);
+    
+    exclude(realboard, showboard, ROW, COL);
     
 }
 void test()

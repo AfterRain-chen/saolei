@@ -45,3 +45,44 @@ void setboard(char board[][COLS], int row, int col)
         }
     }
 }
+
+void exclude(char realboard[][COLS], char showboard[][COLS], int row, int col)
+{
+    printf("enter exclude success\n");
+    int x ,y = 0;
+    int number = (ROW*COL) - EASY_COUNT;
+    while(number)
+    {
+        printf("select the position: ");
+        scanf("%d%d", &x, &y);
+        if(x >= 1 && x <= col && y >= 1 && y <=row)
+        {
+            if(realboard[x][y] == '1') {
+                printf("you died\n");  
+                printboard(realboard, ROW, COL);
+                break;
+            }
+            else {
+                int count = get_count(realboard, x, y);
+                showboard[x][y] = count + '0';
+                printboard(showboard, ROW, COL);
+                number--;
+            }    
+        }
+        else { printf("坐标非法");}
+    }
+    
+    if(number == 0)
+    {
+        printf("win\n");
+        printboard(realboard, ROW, COL);
+    }
+}
+
+
+int get_count(char realboard[][COLS], int x, int y)
+{
+    return realboard[x-1][y-1] + realboard[x-1][y] + realboard[x-1][y+1] + 
+    realboard[x][y-1] + realboard[x][y+1] + 
+    realboard[x+1][y-1] + realboard[x+1][y] + realboard[x+1][y+1] - 8* '0';
+}
