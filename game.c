@@ -1,11 +1,11 @@
 #include "game.h"
 
-void initboard(char board [][COLS], int rows, int cols, char set)
+void initboard(char board[][COLS], int rows, int cols, char set)
 {
-    int x,y = 0;
-    for(x = 0; x < rows; x++)
+    int x, y = 0;
+    for (x = 0; x < rows; x++)
     {
-        for(y = 0; y < cols ; y++)
+        for (y = 0; y < cols; y++)
         {
             board[x][y] = set;
         }
@@ -14,17 +14,18 @@ void initboard(char board [][COLS], int rows, int cols, char set)
 
 void printboard(const char board[][COLS], int row, int col)
 {
-    int x,y = 0;
-    for(y = 0; y <= col; y++) { 
+    int x, y = 0;
+    for (y = 0; y <= col; y++)
+    {
         printf("%d ", y);
     }
     printf("\n");
-    for(x = 1; x <= row; x++)
+    for (x = 1; x <= row; x++)
     {
         printf("%d ", x);
-        for(y = 1; y <= col; y++)
+        for (y = 1; y <= col; y++)
         {
-            printf("%c ", board[x][y]); 
+            printf("%c ", board[x][y]);
         }
         printf("\n");
     }
@@ -34,11 +35,11 @@ void printboard(const char board[][COLS], int row, int col)
 void setboard(char board[][COLS], int row, int col)
 {
     int count = EASY_COUNT;
-    while(count)
+    while (count)
     {
-        int x = rand()%row + 1;
-        int y = rand()%col + 1;
-        if(board[x][y] == '0')
+        int x = rand() % row + 1;
+        int y = rand() % col + 1;
+        if (board[x][y] == '0')
         {
             board[x][y] = '1';
             count--;
@@ -49,32 +50,37 @@ void setboard(char board[][COLS], int row, int col)
 void exclude(char realboard[][COLS], char showboard[][COLS], int row, int col)
 {
     printf("enter exclude successfully\n");
-    int x ,y = 0;
+    int x, y = 0;
     int number = getxing(showboard, row, col);
-    while(number > EASY_COUNT)
+    while (number > EASY_COUNT)
     {
         printf("select the position: ");
         scanf("%d%d", &x, &y);
-        if(x >= 1 && x <= row && y >= 1 && y <=col)
+        if (x >= 1 && x <= row && y >= 1 && y <= col)
         {
-            if(realboard[x][y] == '1') {
-                printf("you died\n");  
+            if (realboard[x][y] == '1')
+            {
+                printf("you died\n");
                 printboard(realboard, ROW, COL);
                 break;
             }
-            else {
-                //æœ€éš¾çš„é€’å½’éƒ¨åˆ†
-                ExpandBoard(realboard, showboard, x , y);
-                
+            else
+            {
+                // ×îÄÑµÄµÝ¹é²¿·Ö
+                ExpandBoard(realboard, showboard, x, y);
+
                 printboard(showboard, ROW, COL);
-                number = getxing(showboard,row , col);
-                printf("%d\n",number);
-            }    
+                number = getxing(showboard, row, col);
+                printf("Ê£ÓàÎ´Öª¸öÊý: %d\n", number);
+            }
         }
-        else { printf("åæ ‡éžæ³•");}
+        else
+        {
+            printf("×ø±ê·Ç·¨");
+        }
     }
-    
-    if(number == EASY_COUNT)
+
+    if (number == EASY_COUNT)
     {
         printf("win\n");
         printboard(realboard, ROW, COL);
@@ -84,28 +90,38 @@ void exclude(char realboard[][COLS], char showboard[][COLS], int row, int col)
 void ExpandBoard(char realboard[][COLS], char showboard[][COLS], int x, int y)
 {
     printf("enter ExpandBoard successfully\n");
-    printf("%d %d\n",x,y);
-    //è¶Šç•Œæ£€æŸ¥
-    if(x < 1 || x >= ROWS || y < 1 || y >=COLS ) 
-    {   printf("è¶Šç•Œ\n");
-        return; 
+    printf("%d %d\n", x, y);
+    // Ô½½ç¼ì²é
+    if (x < 1 || x >= ROWS || y < 1 || y >= COLS)
+    {
+        printf("Ô½½ç\n");
+        return;
     }
-    if(showboard[x][y] == ' ') {printf("å·²å¤„ç†\n"); return; }; 
-    //è®¡ç®—é›·æ•°
+    if (showboard[x][y] == ' ')
+    {
+        printf("ÒÑ´¦Àí\n");
+        return;
+    };
+    // ¼ÆËãÀ×Êý
     int count = get_count(realboard, x, y);
     //
-    if(count > 0) {
+    if (count > 0)
+    {
         showboard[x][y] = count + '0';
     }
     //
-    else {
+    else
+    {
         showboard[x][y] = ' ';
-        int i , j = 0;
-        for(i = x-1; i <= x+1; i++)
+        int i, j = 0;
+        for (i = x - 1; i <= x + 1; i++)
         {
-            for(j = y-1; j <= y+1; j++) 
+            for (j = y - 1; j <= y + 1; j++)
             {
-                if(i == x && j == y) { continue; }
+                if (i == x && j == y)
+                {
+                    continue;
+                }
                 ExpandBoard(realboard, showboard, i, j);
                 printf("enter other\n");
             }
@@ -116,20 +132,20 @@ void ExpandBoard(char realboard[][COLS], char showboard[][COLS], int x, int y)
 
 int get_count(char realboard[][COLS], int x, int y)
 {
-    return realboard[x-1][y-1] + realboard[x-1][y] + realboard[x-1][y+1] + 
-    realboard[x][y-1] + realboard[x][y+1] + 
-    realboard[x+1][y-1] + realboard[x+1][y] + realboard[x+1][y+1] - 8* '0';
+    return realboard[x - 1][y - 1] + realboard[x - 1][y] + realboard[x - 1][y + 1] +
+           realboard[x][y - 1] + realboard[x][y + 1] +
+           realboard[x + 1][y - 1] + realboard[x + 1][y] + realboard[x + 1][y + 1] - 8 * '0';
 }
 
 int getxing(char showboard[][COLS], int row, int col)
 {
     int count = 0;
-    for(int i = 1; i <= row; i ++)
+    for (int i = 1; i <= row; i++)
     {
-        for(int j = 1; j <= col ; j++)
+        for (int j = 1; j <= col; j++)
         {
-            if(showboard[i][j] == '*')
-            count++;
+            if (showboard[i][j] == '*')
+                count++;
         }
     }
     return count;

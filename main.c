@@ -1,39 +1,40 @@
 #include "game.h"
 
-void menu() {
-    printf("è¯·é€‰æ‹©ï¼š\n");
+void menu()
+{
+    printf("ÇëÑ¡Ôñ£º\n");
     printf("1.Start\n");
     printf("0.Exit\n");
 }
 
 void game()
 {
-    char realboard[ROWS][COLS] = { 0 };
-    char showboard[ROWS][COLS] = { 0 };    
-    //åˆå§‹åŒ–é›·åœ°ï¼ˆäºŒç»´æ•°ç»„ï¼‰
+    char realboard[ROWS][COLS] = {0};
+    char showboard[ROWS][COLS] = {0};
+    // ³õÊ¼»¯À×µØ£¨¶şÎ¬Êı×é£©
     initboard(realboard, ROWS, COLS, '0');
     initboard(showboard, ROWS, COLS, '*');
-    
+
     printboard(realboard, ROW, COL);
     printboard(showboard, ROW, COL);
-    
+
     setboard(realboard, ROW, COL);
     printboard(realboard, ROW, COL);
     printboard(showboard, ROW, COL);
-    
+
     exclude(realboard, showboard, ROW, COL);
-    
 }
 void test()
 {
     unsigned int selection = 0;
-    do {
+    do
+    {
         menu();
         printf("Please select :");
         scanf("%d", &selection);
-        switch(selection)
+        switch (selection)
         {
-        case 1: 
+        case 1:
             game();
             break;
         case 0:
@@ -43,33 +44,18 @@ void test()
             printf("error selection\n");
             break;
         }
-        
-    } while(selection);
+
+    } while (selection);
 }
 
 int main()
 {
     int a = 0;
-    printf("ä¸­æ–‡æµ‹è¯•\n");
+    printf("ÖĞÎÄ²âÊÔ\n");
     srand((unsigned)(time(NULL)));
     test();
-    scanf("%d",&a);
+    scanf("%d", &a);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // #include <iostream>
 // #include <vector>
@@ -83,5 +69,3 @@ int main()
 //         }
 //     std::cout << std::endl;
 // }
-
-
