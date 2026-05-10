@@ -1,0 +1,117 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "compile with GCC",
+			"command": "E:\\VSCode\\MinGW\\mingw64\\bin\\gcc.exe",
+			"args": [
+				"-g",
+				"-fdiagnostics-color=always",
+				"${workspaceFolder}\\src\\*.c",
+				"-I",
+				"E:/stb_clone",
+				"-o",
+				"${workspaceFolder}\\test.exe"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": ["$gcc"],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "GCC编译c源文件"
+		},
+
+		{
+			"type": "shell",
+			"label": "compile with G++",
+			"command": "E:\\VSCode\\MinGW\\mingw64\\bin\\g++.exe",
+			"args": [
+				"-g",
+				"-fdiagnostics-color=always",
+				"${workspaceFolder}\\src\\*.c",
+				"${workspaceFolder}\\src\\*.cpp",
+				"-I",
+				"E:/stb_clone",
+				"-o",
+				"${workspaceFolder}\\test.exe"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": ["$gcc"],
+			"detail": "使用G++编译C/C++源文件"
+		},
+
+        {
+            "type": "shell",
+            "label": "compile src with clang",
+            "command": "clang",
+            "args": [
+                "-g",
+                "${workspaceFolder}/src/*.c",
+                "-o",
+                "${workspaceFolder}/main.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "detail": "CLANG编译c源文件"
+        }
+    ]
+}
+
+
+// {
+//     "version": "2.0.0",
+//     "tasks": [
+//         {
+//             "type": "shell",
+//             "label": "build-cpp",
+//             "command": "gcc",
+//             "args": ["src/main.c", "-o", "bin/c_program.exe"]
+//         },
+//         {
+//             "label": "build-cpp",
+//             "type": "shell",
+//             "command": "g++",
+//             "args": ["src/main.cpp", "-o", "bin/cpp_program.exe"]
+//         },
+//         {
+//             "label": "build-java",
+//             "type": "shell",
+//             "command": "javac",
+//             "args": ["src/Main.java", "-d", "bin"]
+//         },
+//         {
+//             "label": "build-rust",
+//             "type": "shell",
+//             "command": "cargo",
+//             "args": ["build"]
+//         },
+//         {
+//             "label": "build-all",
+//             "dependsOn": [
+//                 "build-c",
+//                 "build-cpp",
+//                 "build-java",
+//                 "build-rust"
+//             ],
+//             "group": {
+//                 "kind": "build",
+//                 "isDefault": true
+//             }
+//         }
+//     ]
+// }
+
+//#include <locale.h>
+//int main()
+//{
+//	//setlocale(lc_all, "chs");
+//	printf("你好世界");
+//}
